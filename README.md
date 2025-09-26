@@ -4,7 +4,7 @@ A website that lets UNT students post their rides, denoting "To", "From", "Time"
 
 # Features of UNT RIDES
 
--User Sign up and Log in
--Posting rides
--Requesting rides
--Cancel Ride Posting
+User Sign up and Log in
+Posting rides
+Requesting rides
+Cancel Ride Posting
