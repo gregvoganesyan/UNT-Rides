@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%# style sheet %>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <header>
+        <h2><a href="/">UNT RIDES</a></h2>
+        <nav>
+            <%# need to add profile to navigation bar %>
+        </nav>
+    </header>
+    <main>
+        <h3>Login</h3>
+        <form action="/register" method="POST">
+        <fieldset>
+            <label for="username"><small>Username</small></label>
+            <input type="text" name="username" id="username" autocomplete="off" />
+
+            <label for="password"><small>Password</small></label>
+            <input type="password" name="password" id="password" autocomplete="off" />
+            <br />
+        </fieldset>
+        <button>Log In</button>
+        </form>
+        <p>
+            Don't have an account? <a href="/signup">Sign Up</a>
+        </p>
+    </main>
+</body>
+</html>

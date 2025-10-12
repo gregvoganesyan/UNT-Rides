@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%# style sheet %>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <header>
+        <h2><a href="/">UNT RIDES</a></h2>
+        <nav>
+            <%# need to add profile to navigation bar %>
+        </nav>
+    </header>
+    <main>
+        <h3>Sign Up</h3>
+        <form action="/register" method="POST">
+        <% errors.forEach(error => { %>
+            <p class="notice"><%= error %></p>
+
+        <% }) %>
+        
+        <fieldset>
+            <label for="username"><small>Username</small></label>
+            <input type="text" name="username" id="username" autocomplete="off" />
+
+            <label for="email"><small>Email</small></label>
+            <input type="email" name="email" id="email" autocomplete="off" />
+
+            <p> 
+                Note: Use your UNT Email when signing up.
+                <br />
+                Emails will be given out to riders.
+            </p>
+
+            <label for="password"><small>Password</small></label>
+            <input type="password" name="password" id="password" autocomplete="off" />
+            
+            <label for="confirm password"><small>Confirm Password</small></label>
+            <input type="password" name="confirm_password" id="confirm_password" autocomplete="off" />
+            <br />
+        </fieldset>
+        <button>Sign Up</button>
+        </form>
+        <p>
+            Already have an account? <a href="/login">Log In</a>
+        </p>
+    </main>
+</body>
+</html>
