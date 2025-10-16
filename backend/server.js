@@ -1,13 +1,47 @@
+require("dotenv").config()
 const express = require("express")
+const bcrypt = require("bcrypt")
+const jwt = require("jsonwebtoken")
+const cookieParser = require("cookie-parser")
+const db = require("better-sqlite3")("UNTRIDES.db")
+db.pragma("journal_mode = WAL")
+
+//database setup
+const createTables = db.transaction(()=> {
+    db.prepare(
+        `
+        CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        username STRING NOT NULL UNIQUE,
+        email STRING NOT NULL UNIQUE,
+        password STRING NOT NULL
+        )
+        `
+    ).run()
+})
+
+createTables()
+
 const app = express()
 
 app.set("view engine", "ejs")
 app.use(express.urlencoded({extended: false}))
 app.use(express.static("public"))
+app.use(cookieParser())
 
 //middleware (gets in the middle of a request and response)
 app.use(function (req, res, next) {
     res.locals.errors = []
+
+    //decode incoming cookie
+    try {
+        const decoded = jwt.verify(req.cookies.UNTRIDES, process.env.JWTSECRET)
+        req.user = decoded
+    } catch(err) {
+        req.user = false
+    }
+    res.locals.user = req.user
+    console.log(req.user)
     next()
 })
 
@@ -47,10 +81,33 @@ app.post("/register", (req, res)=> {
     if(errors.length) {
         return res.render("signup", {errors})
     }
+
+    //hash password
+    const salt = bcrypt.genSaltSync(10)
+    req.body.password = bcrypt.hashSync(req.body.password, salt)
+
+    //save new user in database
+    const ourStatement = db.prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)")
+    const result = ourStatement.run(req.body.username, req.body.email, req.body.password)
     
-    //no errors, save the user into a database
+    const searchStatement = db.prepare("SELECT * FROM users WHERE ROWID = ?")
+    const ridesUser = searchStatement.get(result.lastInsertRowid)
+
+    //create a JWT (JSON Web Token)
+    const tokenVal = jwt.sign({exp: Math.floor(Date.now()/ 1000) + 60 * 60 * 24, userid: ridesUser.id}, process.env.JWTSECRET)
 
     //log user in by giving a cookie
+    res.cookie("UNTRIDES", tokenVal, {
+        //client-side JS cannot access this cookie
+        httpOnly: true,
+        //only send cookie over HTTPS, not HTTP
+        secure: true,
+        sameSite: "strict",
+        //cookie is good for one day
+        maxAge: 1000 * 60 * 60 * 24
+    })
+    
+    res.send("thank you")
 })
 
 app.listen(3000)
