@@ -11,12 +11,21 @@
     <header>
         <h2><a href="/">UNT RIDES</a></h2>
         <nav>
-            <%# need to add profile to navigation bar %>
+            <% if (user) { %>
+                <a href="/profile">Profile</a>
+                <a href="/post-ride">Post a Ride</a>
+                <a href="/logout">Log Out</a>
+            <% } else { %>
+            <% } %>
         </nav>
     </header>
     <main>
         <h3>Login</h3>
-        <form action="/register" method="POST">
+        <form action="/login" method="POST">
+            <% errors.forEach(error => { %>
+                 <p class="notice"><%= error %></p>
+                 
+            <% }) %>
         <fieldset>
             <label for="username"><small>Username</small></label>
             <input type="text" name="username" id="username" autocomplete="off" />
