@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%# style sheet %>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <header>
+        <h2><a href="/">UNT RIDES</a></h2>
+        <nav>
+            <% if (user) { %>
+                <a href="/profile">Profile</a>
+                <a href="/find-ride">find a Ride</a>
+                <a href="/logout">Log Out</a>
+            <% } else { %>
+                <a href="/login">Log In</a>
+            <% } %>
+        </nav>
+    </header>
+    <main>
+        <h2> Post a Ride </h2>
+    </main>
+</body>
+</html>
