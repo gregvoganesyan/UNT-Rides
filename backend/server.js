@@ -46,15 +46,26 @@ app.use(function (req, res, next) {
 })
 
 app.get("/", (req, res)=> {
+    if (req.user) {
+        return res.render("findride")
+    }
     res.render("homepage")
 })
 
 app.get("/login", (req, res)=> {
+    if (req.user) {
+        return res.render("findride")
+    }
     res.render("login")
 })
 
 app.get("/signup", (req, res)=> {
     res.render("signup")
+})
+
+app.get("/logout", (req, res)=> {
+    res.clearCookie("UNTRIDES")
+    res.redirect("/login")
 })
 
 app.post("/register", (req, res)=> {
@@ -107,7 +118,54 @@ app.post("/register", (req, res)=> {
         maxAge: 1000 * 60 * 60 * 24
     })
     
-    res.send("thank you")
+    res.redirect("/")
+})
+
+app.post("/login", (req, res)=> {
+     const errors = []
+
+    if(typeof req.body.username !== "string") req.body.username = ""
+    if(typeof req.body.password !== "string") req.body.password = ""
+
+    if (req.body.username.trim() == "") errors.push("Username or Password is invalid!")
+    if (req.body.password.trim() == "") errors.push("Username or Password is invalid!")
+    
+
+    if (errors.length) {
+        return res.render("login", {errors})
+    }
+
+    const userStatement = db.prepare("SELECT * FROM users WHERE username = ?")
+    const thisUser = userStatement.get(req.body.username)
+
+    if (!thisUser) {
+        errors.push("Username or Password is invalid!")
+        return res.render("login", {errors})
+    }
+    
+    const match = bcrypt.compareSync(req.body.password, thisUser.password)
+    
+    if (!match) {
+        errors.push("Username or Password is invalid!")
+        return res.render("login", {errors})
+    }
+
+    //create a JWT (JSON Web Token)
+    const tokenVal = jwt.sign({exp: Math.floor(Date.now()/ 1000) + 60 * 60 * 24, userid: thisUser.id}, process.env.JWTSECRET)
+
+    //log user in by giving a cookie
+    res.cookie("UNTRIDES", tokenVal, {
+        //client-side JS cannot access this cookie
+        httpOnly: true,
+        //only send cookie over HTTPS, not HTTP
+        secure: true,
+        sameSite: "strict",
+        //cookie is good for one day
+        maxAge: 1000 * 60 * 60 * 24
+    })
+
+    res.redirect("/")
+
 })
 
 app.listen(3000)
