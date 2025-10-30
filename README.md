@@ -8,3 +8,14 @@ User Sign up and Log in<br>
 Posting rides<br>
 Requesting rides<br>
 Cancel Ride Posting<br>
+
+# Run the Code on Local Host:
+npm install
+npm install dotenv
+npm install bcrypt
+npm install jsonwebtoken
+npm install cookie-parser
+npm install better-sqlite3
+
+npm run dev
+localhost:3000
