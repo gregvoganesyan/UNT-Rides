@@ -1,0 +1,140 @@
+/* global styles */
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+    padding: 0;
+  background-color: #ffffff;
+  background-image: url("/images/vector.png");
+  background-size: cover;
+  background-position : center top;
+}
+
+header {
+  background-color: #00853E;
+  color: #ffffff;
+  text-align: center;
+  width: 100%;
+  padding: 8px 0;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+/* link in header */
+header a {
+  color: #ffffff;
+  text-decoration : none;
+}
+
+/* centers */
+.container-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.subheading {
+  color: #000;
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 25px;
+}
+
+/* green box */
+.box {
+  background-color: #00853E;
+  width: 450px;
+  padding: 13px 0 12px;
+  border-radius: 1px;
+  display: flex;
+  justify-content: center;
+}
+/* inner part of green box */
+.innerboxes {
+  width: 88%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* user inputed text */
+.inputfield {
+  background-color: #ffffff;
+  border: none;
+  width: 100%;
+  margin: 4px 0;
+  padding: 18px 0;
+  border-radius: 1px;
+  text-align: center;
+  font-size: 15px;
+  color: #000000;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+}
+
+.submit {
+  width: 450px;
+  display: flex;
+  justify-content: center;
+  margin-top: 14px;
+}
+
+.submit button {
+  width: 100%;
+  background-color: #00853E;
+  color: #ffffff;
+  border: none;
+  padding: 12px 0;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 1px;
+  font-family: 'Inter', sans-serif;
+}
+
+.submit button:hover {
+  background-color: #006e34;
+}
+
+.greenboxtext {
+  color: #ffffff;
+  font-size: 17px;
+  text-align: center;
+  margin: 4px 0 4px;
+  line-height: 1.4;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+}
+
+.errlist {
+  width: 450px;
+  background: #edb4b4;
+  color: #201414;
+  padding: 5px 15px;
+  border-radius: 2px;
+  box-sizing: border-box;
+  border : 1px solid #9b9191;
+  margin-bottom: 10px;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+}
+
+.paragraphtxt {
+  margin-top: 15px;
+  text-align: center;
+  color: #000;
+  font-size: 16px;
+  font-family: 'Inter', sans-serif;
+}
+
+/* link */
+.paragraphtxt a {
+  color: #00853E;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.paragraphtxt a:hover {
+  color: #015326;
+}
