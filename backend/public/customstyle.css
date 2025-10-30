@@ -14,16 +14,24 @@ header {
   color: #ffffff;
   text-align: center;
   width: 100%;
-  padding: 8px 0;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 600;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.4px;
 }
 
 /* link in header */
 header a {
   color: #ffffff;
   text-decoration : none;
+}
+
+.headertextandaccount {
+  position: relative;
+  width: 85%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* centers */
@@ -138,3 +146,52 @@ header a {
 .paragraphtxt a:hover {
   color: #015326;
 }
+
+.accountposition {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.accounticon {
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  display: block;
+}
+
+.dropdown {
+  position: absolute;
+  display: none;
+  right: 0;
+  top: 75px;
+  background-color: #ffffff;
+  min-width: 200px;
+  border-radius: 1px;
+  border: 1px solid #c2c1c1;
+  z-index: 1000;
+}
+
+.dropdown.show {
+  display: block;
+}
+
+.dropdown a {
+  color: #4b4a4a;
+  text-align: left;
+  font-size: 17px;
+  padding: 8px 30px;
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-weight: 200;
+}
+
+.dropdown a:hover {
+  background-color: #eff0ef;
+}
+
+
