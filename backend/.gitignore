@@ -1,9 +1,6 @@
 # Node.js dependencies
 node_modules/
 
-# Environment variables and secrets
-.env
-
 # SQLite database files
 UNTRIDES.db
 UNTRIDES.db-shm
