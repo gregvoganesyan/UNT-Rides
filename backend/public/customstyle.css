@@ -51,12 +51,24 @@ header a {
 /* green box */
 .box {
   background-color: #00853E;
-  width: 450px;
+  width: 425px;
   padding: 13px 0 12px;
   border-radius: 1px;
   display: flex;
   justify-content: center;
 }
+
+/* green box */
+.boxLogin {
+  background-color: #00853E;
+  width: 425px;
+  padding: 35px 0 20px;
+  border-radius: 1px;
+  display: flex;
+  justify-content: center;
+}
+
+
 /* inner part of green box */
 .innerboxes {
   width: 88%;
@@ -82,7 +94,7 @@ header a {
 }
 
 .submit {
-  width: 450px;
+  width: 425px;
   display: flex;
   justify-content: center;
   margin-top: 14px;
@@ -194,4 +206,19 @@ header a {
   background-color: #eff0ef;
 }
 
+.forgot {
+  color: #eff9e8;
+  text-decoration: underline;
+  display: block;
+  font-weight: 200;
+  font-size: 16px;
+  width: 100%;
+  text-align: right;
+  margin-top: 6px;
+  font-family: 'Inter', sans-serif;
+}
+
+.forgot:hover {
+  color: #dbe3db;
+}
 
