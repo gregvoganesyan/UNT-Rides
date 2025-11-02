@@ -52,6 +52,13 @@ app.get("/", (req, res)=> {
     res.render("homepage")
 })
 
+app.get("/dashboard", (req, res)=> {
+    if (req.user) {
+        return res.render("dashboard")
+    }
+    res.render("login")
+})
+
 app.get("/login", (req, res)=> {
     if (req.user) {
         return res.render("findride")
