@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('includes/head') %>
+<body>
+    <%- include('includes/header') %>
+
+    <main>
+    <main>
+        <form action="/edit-post/<%=post.id%>" method="POST">
+
+            <h2>Edit Ride</h2>
+
+            <% errors.forEach(error => { %>
+                <p class="notice"><%= error %></p>
+            <% }) %>
+            <fieldset>
+                <legend><%=user.username%></legend>
+
+                <label for="rideTo"><small>To: </small></label>
+                <input type="text" id="rideTo" name="rideTo" required value="<%= post.rideTo %>">
+
+                <label for="rideFrom"><small>From: </small></label>
+                <input type="text" id="rideFrom" name="rideFrom" required value="<%= post.rideFrom %>">
+
+                <label for="rideDate"><small>Date</small></label>
+                <input type="date" id="rideDate" min="<%= new Date().toISOString().split('T')[0] %>" onkeydown="return false" name="rideDate" value="<%= post.rideDate %>" required>
+
+                <label for="rideTime"><small>Time</small></label>
+                <input type="time" id="rideTime" name="rideTime" onkeydown="return false" value="<%= post.rideTime %>"  required> 
+
+                <label for="fare"><small>Fare</small></label>
+                <input type="number" id="fare" name="fare" required value="<%= post.fare %>">
+                <br />
+
+                <button>Confirm Changes</button>
+            </fieldset>
+        </form>
+    </main>
+    </main>
+
+    <%- include('includes/footer') %>
+    
+</body>
+</html>

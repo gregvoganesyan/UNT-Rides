@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('includes/head') %>
+<body>
+    <%- include('includes/header') %>
+    <main>
+        <% if (posts.length==0) {%>
+        <h3><%=user.username%></h3>
+        <h4>There aren't any rides yet. Click "Create Post" to add your ride.</h4>
+        <% } else { %>
+        <h3><%=user.username%></h3>
+        <h4>The following rides are available. </h4>
+        <% } %>
+        
+        <ul class="ride-list">
+            <% posts.forEach(post => { %>
+                <li>
+                <a href="/post/<%= post.id %>" class="post-box">
+                    <div class="post-content">
+                    <strong>To:</strong> <%= post.rideTo %> <br>
+                    <strong>From:</strong> <%= post.rideFrom %> <br>
+                    <strong>Date:</strong> <%= post.rideDate %> <br>
+                    <strong>Time:</strong> <%= post.rideTime %> <br>
+                    <strong>Fare:</strong> $<%= post.fare %> <br>
+                    <small>Posted by <%= post.username %> on <%= new Date(post.createdDate).getMonth()+1 %>/<%= new Date(post.createdDate).getDate() %>/<%= new Date(post.createdDate).getFullYear() %></small>
+                    </div>
+                </a>
+                </li>
+            <% }) %>
+        </ul>
+    </main>
+
+    <%- include('includes/footer') %>
+</body>
+</html>
