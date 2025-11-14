@@ -16,6 +16,7 @@ npm install bcrypt<br>
 npm install jsonwebtoken<br>
 npm install cookie-parser<br>
 npm install better-sqlite3<br>
+npm install sanitize-html
 
 npm run dev<br>
 localhost:3000<br>
