@@ -222,3 +222,17 @@ header a {
   color: #dbe3db;
 }
 
+.nav-link {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 350;
+  padding-top: 10px;
+  margin-right: 15px;
+  font-family: 'Inter', sans-serif;
+  display: inline-block;
+}
+
+.nav-link:hover {
+  color: #e0e0e0;
+}
