@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('includes/head') %>
+<body>
+    <%- include('includes/header') %>
+
+    <main>
+        <h4>Ride from <%= post.rideFrom %> to <%= post.rideTo %></h4>
+
+        <article>
+            
+            <div class="post-details">
+                <p><strong>To:</strong> <%= post.rideTo %></p>
+                <p><strong>From:</strong> <%= post.rideFrom %></p>
+                <p><strong>Date:</strong> <%= post.rideDate %></p>
+                <p><strong>Time:</strong> <%= post.rideTime %></p>
+                <p><strong>Fare:</strong> $<%= post.fare %></p>
+            </div>
+
+            <small>Posted on <%= new Date(post.createdDate).getMonth()+1%>/<%= new Date(post.createdDate).getDate()%>/<%= new Date(post.createdDate).getFullYear()%></small>
+        </article>
+    <% if (isAuthor){ %> 
+    <a href="/edit-post/<%= post.id%>" class="button">Edit Post</a>
+    <form style="display: inline;" action="/delete-post/ <%= post.id%>" method="POST">
+        <button>Delete Post</button>
+    </form>
+    <% } %>
+    </main>
+
+    <%- include('includes/footer') %>
+    
+</body>
+</html>
