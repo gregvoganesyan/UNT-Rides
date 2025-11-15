@@ -3,8 +3,10 @@ const express = require("express")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const cookieParser = require("cookie-parser")
+const sanitizeHTML = require("sanitize-html")
 const db = require("better-sqlite3")("UNTRIDES.db")
-db.pragma("journal_mode = WAL")
+db.pragma("journal_mode=WAL")
+const path = require("path")
 
 //database setup
 const createTables = db.transaction(()=> {
@@ -13,17 +15,31 @@ const createTables = db.transaction(()=> {
         CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         username STRING NOT NULL UNIQUE,
-        email STRING NOT NULL UNIQUE,
+        email STRING,
         password STRING NOT NULL
         )
         `
     ).run()
-})
 
+    db.prepare(`
+        CREATE TABLE IF NOT EXISTS posts (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            createdDate TEXT,
+            rideTo TEXT NOT NULL,
+            rideFrom TEXT NOT NULL,
+            rideDate TEXT NOT NULL,
+            rideTime TEXT NOT NULL,
+            fare FLOAT NOT NULL,
+            authorid INTEGER,
+            FOREIGN KEY (authorid) REFERENCES users (id)
+        )
+    `).run()
+})
 createTables()
 
 const app = express()
 
+app.set("views", path.join(__dirname, "views"))
 app.set("view engine", "ejs")
 app.use(express.urlencoded({extended: false}))
 app.use(express.static("public"))
@@ -47,7 +63,14 @@ app.use(function (req, res, next) {
 
 app.get("/", (req, res)=> {
     if (req.user) {
-        return res.render("findride")
+        const statement = db.prepare(`
+            SELECT posts.*, users.username 
+            FROM posts
+            JOIN users ON posts.authorid = users.id
+            ORDER BY datetime(posts.createdDate) DESC
+        `)
+        const posts = statement.all()
+        return res.render("find-ride", {posts})
     }
     res.render("homepage")
 })
@@ -61,7 +84,14 @@ app.get("/dashboard", (req, res)=> {
 
 app.get("/login", (req, res)=> {
     if (req.user) {
-        return res.render("findride")
+        const statement = db.prepare(`
+            SELECT posts.*, users.username 
+            FROM posts
+            JOIN users ON posts.authorid = users.id
+            ORDER BY datetime(posts.createdDate) DESC
+        `)
+        const posts = statement.all()
+        return res.render("find-ride", {posts})
     }
     res.render("login")
 })
@@ -81,7 +111,6 @@ app.post("/register", (req, res)=> {
     if(typeof req.body.username !== "string") req.body.username = ""
     if(typeof req.body.password !== "string") req.body.password = ""
 
-    //trim spaces
     req.body.username = req.body.username.trim()
 
     if(!req.body.username) errors.push("Username is required!")
@@ -92,6 +121,16 @@ app.post("/register", (req, res)=> {
     if(!req.body.email) errors.push("Email is required!")
     if(req.body.email && !req.body.email.endsWith('@my.unt.edu')) errors.push("Please use your UNT email address")
 
+    const emailCheck = db.prepare("SELECT * FROM users WHERE email = ?").get(req.body.email);
+    if (emailCheck) {
+        errors.push("Email already in use!");
+    }
+
+    const usernameCheck = db.prepare("SELECT * FROM users WHERE username = ?").get(req.body.username);
+    if (usernameCheck) {
+        errors.push("Username already in use!");
+    }
+    
     if(!req.body.password) errors.push("Password is required!")
     if(req.body.password && req.body.password.length < 8) errors.push("Password must be at least 8 characters")
     if(req.body.password !== req.body.confirm_password) errors.push("Passwords do not match!")
@@ -100,28 +139,21 @@ app.post("/register", (req, res)=> {
         return res.render("signup", {errors})
     }
 
-    //hash password
     const salt = bcrypt.genSaltSync(10)
     req.body.password = bcrypt.hashSync(req.body.password, salt)
 
-    //save new user in database
     const ourStatement = db.prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)")
     const result = ourStatement.run(req.body.username, req.body.email, req.body.password)
     
     const searchStatement = db.prepare("SELECT * FROM users WHERE ROWID = ?")
     const ridesUser = searchStatement.get(result.lastInsertRowid)
 
-    //create a JWT (JSON Web Token)
     const tokenVal = jwt.sign({exp: Math.floor(Date.now()/ 1000) + 60 * 60 * 24, userid: ridesUser.id}, process.env.JWTSECRET)
 
-    //log user in by giving a cookie
     res.cookie("UNTRIDES", tokenVal, {
-        //client-side JS cannot access this cookie
         httpOnly: true,
-        //only send cookie over HTTPS, not HTTP
         secure: true,
         sameSite: "strict",
-        //cookie is good for one day
         maxAge: 1000 * 60 * 60 * 24
     })
     
@@ -129,14 +161,13 @@ app.post("/register", (req, res)=> {
 })
 
 app.post("/login", (req, res)=> {
-     const errors = []
+    const errors = []
 
     if(typeof req.body.username !== "string") req.body.username = ""
     if(typeof req.body.password !== "string") req.body.password = ""
 
     if (req.body.username.trim() == "") errors.push("Username or Password is invalid!")
     if (req.body.password.trim() == "") errors.push("Username or Password is invalid!")
-    
 
     if (errors.length) {
         return res.render("login", {errors})
@@ -157,22 +188,169 @@ app.post("/login", (req, res)=> {
         return res.render("login", {errors})
     }
 
-    //create a JWT (JSON Web Token)
     const tokenVal = jwt.sign({exp: Math.floor(Date.now()/ 1000) + 60 * 60 * 24, userid: thisUser.id}, process.env.JWTSECRET)
 
-    //log user in by giving a cookie
     res.cookie("UNTRIDES", tokenVal, {
-        //client-side JS cannot access this cookie
         httpOnly: true,
-        //only send cookie over HTTPS, not HTTP
         secure: true,
         sameSite: "strict",
-        //cookie is good for one day
         maxAge: 1000 * 60 * 60 * 24
     })
 
     res.redirect("/")
+})
 
+function mustBeLoggedIn(req, res, next){
+    if (req.user){
+        return next()
+    }
+    return res.redirect("/")
+}
+
+function formatRideDateTime(rideDate, rideTime){  
+    const dateObj = new Date(rideDate + "T" + rideTime);
+    const formattedDate = `${dateObj.getMonth() + 1}/${dateObj.getDate()}/${dateObj.getFullYear()}`;
+    let hours = dateObj.getHours();
+    const minutes = dateObj.getMinutes().toString().padStart(2, "0");
+    const ampm = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12 || 12;
+    const formattedTime = `${hours}:${minutes} ${ampm}`;  
+    return { formattedDate, formattedTime, dateObj };    
+}
+
+function sharedPostValidation(req){
+    const errors=[]
+    if (typeof req.body.rideTo !== "string") req.body.rideTo=""
+    if (typeof req.body.rideFrom !== "string") req.body.rideFrom=""
+    if (typeof req.body.rideDate !== "string") req.body.rideDate=""
+    if (typeof req.body.rideTime !== "string") req.body.rideTime=""
+    if (typeof req.body.fare !== "string") req.body.fare=""
+
+    req.body.rideTo=sanitizeHTML(req.body.rideTo.trim(), {allowedTags: [], allowedAttributes: {}})
+    req.body.rideFrom=sanitizeHTML(req.body.rideFrom.trim(), {allowedTags: [], allowedAttributes: {}})
+    req.body.rideDate=sanitizeHTML(req.body.rideDate.trim(), {allowedTags: [], allowedAttributes: {}})
+    req.body.rideTime=sanitizeHTML(req.body.rideTime.trim(), {allowedTags: [], allowedAttributes: {}})
+    req.body.fare=sanitizeHTML(req.body.fare.trim(), {allowedTags: [], allowedAttributes: {}})
+    
+    if (!req.body.rideTo) errors.push("Must Provide Starting Location")
+    if (!req.body.rideFrom) errors.push("Must Provide Destination")
+    if (!req.body.rideDate) errors.push("Must Provide The Date For The Ride")
+    if (!req.body.rideTime) errors.push("Must Provide The Time For The Ride")
+    if (!req.body.fare) errors.push("Must Provide The Fare")
+    else if (isNaN(parseFloat(req.body.fare)) || parseFloat(req.body.fare) < 0) {
+        errors.push("Fare must be a valid non-negative number.")
+    }
+   
+    return errors
+}   
+
+app.get("/create-post", mustBeLoggedIn, (req,res)=>{
+    res.render("create-post")
+})
+
+app.post("/create-post",mustBeLoggedIn,(req, res)=>{
+    const errors = sharedPostValidation(req)
+    if (errors.length){
+        return res.render("create-post", {errors})
+    }
+
+    const {formattedDate, formattedTime} = formatRideDateTime(req.body.rideDate, req.body.rideTime);
+
+    const ourStatement= db.prepare(" INSERT INTO posts (rideTo, rideFrom, rideDate, rideTime, fare, authorid, createdDate) VALUES (?, ?, ?, ?, ?, ?, ?)")
+    const result=ourStatement.run(req.body.rideTo, req.body.rideFrom, formattedDate, formattedTime, parseFloat(req.body.fare), req.user.userid, new Date().toISOString())
+
+    const getPostStatement= db.prepare("SELECT * FROM posts WHERE ROWID=?")
+    const realPost=getPostStatement.get(result.lastInsertRowid)
+
+    res.redirect(`/post/${realPost.id}`)
+})
+
+app.get("/edit-post/:id", mustBeLoggedIn, (req, res)=>{
+    const statement=db.prepare("SELECT * FROM posts WHERE id=?")
+    const post=statement.get(req.params.id)
+
+    if (!post){
+        return res.redirect("/")
+    }
+
+    if (post.authorid !== req.user.userid){
+        return res.redirect("/")
+    }
+
+    res.render("edit-post", {post})
+})
+
+app.post ("/edit-post/:id", mustBeLoggedIn, (req, res)=>{
+    const statement=db.prepare("SELECT * FROM posts WHERE id=?")
+    const post=statement.get(req.params.id)
+
+    if (!post){
+        return res.redirect("/")
+    }
+    
+    if (post.authorid !== req.user.userid){
+        return res.redirect("/")
+    }
+
+    const errors=sharedPostValidation(req)
+    const {formattedDate, formattedTime} = formatRideDateTime(req.body.rideDate, req.body.rideTime);
+
+    if (errors.length){
+        return res.render("edit-post", {errors})
+    }
+
+    const updateStatement=db.prepare(`UPDATE posts
+    SET rideTo=?, 
+    rideFrom=?,
+    rideDate=?,
+    rideTime=?,
+    fare=?
+    WHERE id=?`)
+    updateStatement.run(req.body.rideTo, req.body.rideFrom, formattedDate, formattedTime, parseFloat(req.body.fare), req.params.id)
+
+    res.redirect(`/post/${req.params.id}`)
+})
+
+app.post("/delete-post/:id", mustBeLoggedIn,(req, res)=>{
+    const statement=db.prepare("SELECT * FROM posts WHERE id=?")
+    const post=statement.get(req.params.id)
+
+    if (!post){
+        return res.redirect("/")
+    }
+
+    if (post.authorid !== req.user.userid){
+        return res.redirect("/")
+    }
+
+    const deleteStatement=db.prepare("DELETE FROM posts WHERE id=?")
+    deleteStatement.run(req.params.id)
+
+    res.redirect("/")
+})
+
+app.get("/post/:id", (req,res)=>{
+    const statement=db.prepare("SELECT posts.*, users.username FROM posts INNER JOIN users ON posts.authorid=users.id WHERE posts.id=?")
+    const post=statement.get(req.params.id)
+
+    if (!post){
+        return res.redirect("/")
+    }
+
+    const isAuthor=post.authorid==req.user.userid
+    res.render("single-post",{post, isAuthor})
+})
+
+app.get("/find-ride", (req, res) => {
+    const statement = db.prepare(`
+        SELECT posts.*, users.username 
+        FROM posts
+        JOIN users ON posts.authorid = users.id
+        ORDER BY datetime(posts.createdDate) DESC
+    `)
+    const posts = statement.all()
+
+    res.render("find-ride", { posts })
 })
 
 app.listen(3000)
