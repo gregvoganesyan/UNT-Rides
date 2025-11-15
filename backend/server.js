@@ -61,6 +61,12 @@ app.use(function (req, res, next) {
     next()
 })
 
+//middleware to set current page for header
+app.use((req, res, next) => {
+    res.locals.currentPage = req.path;
+    next();
+});
+
 app.get("/", (req, res)=> {
     if (req.user) {
         const statement = db.prepare(`
@@ -77,7 +83,15 @@ app.get("/", (req, res)=> {
 
 app.get("/dashboard", (req, res)=> {
     if (req.user) {
-        return res.render("dashboard")
+        const statement = db.prepare(`
+            SELECT posts.* 
+            FROM posts 
+            WHERE posts.authorid = ?
+            ORDER BY datetime(posts.createdDate) DESC
+        `)
+        const posts = statement.all(req.user.userid)
+        
+        return res.render("dashboard", { posts })
     }
     res.render("login")
 })
