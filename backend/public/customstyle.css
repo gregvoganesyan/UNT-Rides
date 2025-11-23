@@ -8,9 +8,8 @@ body {
   background-size: cover;
   background-position : center top;
 }
-
 header {
-  background-color: #00853E;
+  background: radial-gradient(circle, #00853E, #036933);
   color: #ffffff;
   text-align: center;
   width: 100%;
@@ -18,13 +17,11 @@ header {
   font-weight: 600;
   letter-spacing: 0.4px;
 }
-
 /* link in header */
 header a {
   color: #ffffff;
   text-decoration : none;
 }
-
 .headertextandaccount {
   position: relative;
   width: 85%;
@@ -33,42 +30,36 @@ header a {
   align-items: center;
   justify-content: center;
 }
-
 /* centers */
 .container-center {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-
 .subheading {
   color: #000;
   font-size: 32px;
   font-weight: 600;
   margin-bottom: 25px;
 }
-
 /* green box */
 .box {
-  background-color: #00853E;
+  background: radial-gradient(circle, #00853E, #037036);
   width: 425px;
   padding: 13px 0 12px;
   border-radius: 1px;
   display: flex;
   justify-content: center;
 }
-
 /* green box */
 .boxLogin {
-  background-color: #00853E;
+  background: radial-gradient(circle, #00853E, #037036);
   width: 425px;
   padding: 35px 0 20px;
   border-radius: 1px;
   display: flex;
   justify-content: center;
 }
-
-
 /* inner part of green box */
 .innerboxes {
   width: 88%;
@@ -76,7 +67,6 @@ header a {
   flex-direction: column;
   align-items: center;
 }
-
 /* user inputed text */
 .inputfield {
   background-color: #ffffff;
@@ -92,17 +82,15 @@ header a {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
 }
-
 .submit {
   width: 425px;
   display: flex;
   justify-content: center;
   margin-top: 14px;
 }
-
 .submit button {
   width: 100%;
-  background-color: #00853E;
+  background: radial-gradient(circle, #00853E, #037237);
   color: #ffffff;
   border: none;
   padding: 12px 0;
@@ -112,11 +100,9 @@ header a {
   border-radius: 1px;
   font-family: 'Inter', sans-serif;
 }
-
 .submit button:hover {
   background-color: #006e34;
 }
-
 .greenboxtext {
   color: #ffffff;
   font-size: 17px;
@@ -126,7 +112,6 @@ header a {
   font-family: 'Inter', sans-serif;
   font-weight: 500;
 }
-
 .errlist {
   width: 450px;
   background: #edb4b4;
@@ -139,7 +124,6 @@ header a {
   text-align: center;
   font-family: 'Inter', sans-serif;
 }
-
 .paragraphtxt {
   margin-top: 15px;
   text-align: center;
@@ -147,18 +131,15 @@ header a {
   font-size: 16px;
   font-family: 'Inter', sans-serif;
 }
-
 /* link */
 .paragraphtxt a {
   color: #00853E;
   text-decoration: underline;
   font-weight: 500;
 }
-
 .paragraphtxt a:hover {
   color: #015326;
 }
-
 .accountposition {
   position: absolute;
   right: 0;
@@ -168,14 +149,12 @@ header a {
   align-items: center;
   justify-content: center;
 }
-
 .accounticon {
   width: 50px;
   height: 50px;
   cursor: pointer;
   display: block;
 }
-
 .dropdown {
   position: absolute;
   display: none;
@@ -187,11 +166,9 @@ header a {
   border: 1px solid #c2c1c1;
   z-index: 1000;
 }
-
 .dropdown.show {
   display: block;
 }
-
 .dropdown a {
   color: #4b4a4a;
   text-align: left;
@@ -201,11 +178,9 @@ header a {
   font-family: 'Inter', sans-serif;
   font-weight: 200;
 }
-
 .dropdown a:hover {
   background-color: #eff0ef;
 }
-
 .forgot {
   color: #eff9e8;
   text-decoration: underline;
@@ -217,11 +192,9 @@ header a {
   margin-top: 6px;
   font-family: 'Inter', sans-serif;
 }
-
 .forgot:hover {
   color: #dbe3db;
 }
-
 .nav-link {
   color: #ffffff;
   text-decoration: none;
@@ -232,7 +205,217 @@ header a {
   font-family: 'Inter', sans-serif;
   display: inline-block;
 }
-
 .nav-link:hover {
   color: #e0e0e0;
 }
+
+/* split screen */
+.split-container {
+  display: flex;
+  height: calc(100vh - 80px);
+  background: white;
+  overflow: hidden;
+}
+
+.postList {
+  width: 29%;
+  background-color: white;
+  overflow-y: auto;
+}
+
+.postsList-header {
+  background-color: white;
+  color: black;
+  padding: 17px;
+}
+
+.postsList-header h3 {
+  margin: 10px 5px 5px 10px;
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.postsList-header h4 {
+  margin: 10px 5px -30px 10px;
+  font-size: 16px;
+  font-weight: 300;
+  color: black;
+}
+
+/* padding left and right of all rides */
+.ridesList {
+  list-style: none;
+  padding: 20px;
+}
+
+/* padding between each ride */
+.ridesList li {
+  margin-bottom: 16px;
+}
+
+.postDesign {
+  background: radial-gradient(circle, #D9D9D9, #d8d7d7);
+  display: block;
+  padding: 14px;
+  color: #000;
+  border-left: 4px solid transparent;
+  cursor: pointer;
+}
+
+.postDesign:hover {
+  background: radial-gradient(circle, #c2d7ca, #b2c6ba);
+  border-left-color: #00853E;
+}
+
+/* post is clicked on */
+.postDesign.active {
+  background: radial-gradient(circle, #c2d7ca, #b2c6ba);
+  border-left-color: #00853E;
+}
+
+.postDesign-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+
+.postUser {
+  font-weight: 600;
+  color: #00853E;
+  font-size: 16px;
+}
+
+/* details inside each post */
+.postItems {
+  font-size: 15px;
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.postItems strong {
+  color: #000000;
+}
+
+
+.detailSide {
+  width:  30%;
+  background-color: #ffffff;
+  padding: 23px;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+.detailSide.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #bfbebe;
+  font-size: 18px;
+  text-align: center;
+}
+
+/* grey box in details side */
+.details-header {
+  background: radial-gradient(circle, #c7c6c6, #dcdada);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 0px;
+  padding: 28px 20px 20px 20px;
+  border-radius: 0px;
+  margin-left: -23px;
+  margin-right: -23px;
+  margin-top: -23px;
+}
+
+/* user icon box */
+.detailsIcon {
+  width: 150px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 25px;
+}
+
+.detailsIcon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.detailUsername {
+  margin: 0;
+  margin-top: -20px;
+  margin-bottom: -20px;
+  font-size: 24px;
+  font-weight: 650;
+  text-align: center;
+  color: #000;
+}
+
+/* ride details grey box */
+.rideDetails {
+  background: radial-gradient(circle, #E9E7E7, #f0eeee);
+  padding: 10px;
+  text-align: center;
+  font-weight: 650;
+  margin-left: -23px;
+  margin-right: -23px;
+  margin-bottom: 30px;
+}
+
+.detailItem {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 125px;
+}
+
+.detail-rowName {
+  font-size: 18px;
+  color: black;
+  margin-bottom: 0;
+  font-weight: 400;
+  min-width: 50px;
+}
+
+.detail-rowItem {
+  font-size: 18px;
+  color: black;
+  font-weight: 400;
+  text-align: left;
+}
+
+.joinbutton {
+  width: 60%;
+  background: radial-gradient(circle, #00853E, #037237);
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 17px;
+  font-weight: 600;
+  border-radius: 1px;
+  cursor: pointer;
+  margin-top: 28px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.joinbutton:hover {
+  background-color: #006e34;
+}
+
+.map-Column {
+  width: 41%;
+  position: relative;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+}
+
