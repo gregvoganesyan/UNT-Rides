@@ -367,4 +367,54 @@ app.get("/find-ride", (req, res) => {
     res.render("find-ride", { posts })
 })
 
+app.get("/settings", (req, res) => {
+    const statement = db.prepare(`
+        SELECT * FROM users WHERE id = ?
+    `);
+
+    const userDB = statement.get(req.user.userid)
+
+    res.render("settings", {user:userDB})
+});
+
+app.get("/edit-settings", (req, res)=>{
+    const statement=db.prepare("SELECT * FROM users WHERE id=?")
+    const userDB = statement.get(req.user.userid);
+
+    res.render("edit-settings", {user:userDB})
+})
+
+app.post ("/edit-settings", (req, res)=>{
+    const errors=[]
+    if (!req.body.username) errors.push("Username is required!");
+    if (req.body.username && req.body.username.length < 3) errors.push("Username must be at least 3 characters");
+    if (req.body.username && req.body.username.length > 15) errors.push("Username cannot exceed 15 characters");
+    if (req.body.username && !req.body.username.match(/^[a-zA-Z0-9]+$/)) errors.push("Username can only contain letters and numbers");    
+   
+    //Check if username already exists
+    const usernameCheck = db.prepare("SELECT * FROM users WHERE username = ?").get(req.body.username);
+    if (usernameCheck && usernameCheck.id !== req.user.userid) {
+        errors.push("Username already in use!");
+    }
+
+    if (errors.length) {
+        return res.render("edit-settings", { errors,userDB:req.body});
+    }   
+    
+    const updateStatement = db.prepare("UPDATE users SET username=? WHERE id=?");
+    updateStatement.run(req.body.username.trim(), req.user.userid);    
+    const tokenVal = jwt.sign(
+        { exp: Math.floor(Date.now()/1000) + 60*60*24, userid: req.user.userid, username: req.body.username.trim() },
+        process.env.JWTSECRET
+    );
+
+    res.cookie("UNTRIDES", tokenVal, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "strict",
+        maxAge: 1000*60*60*24
+    });
+
+    res.redirect("/settings");
+})
 app.listen(3000)
