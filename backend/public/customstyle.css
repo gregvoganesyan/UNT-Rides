@@ -101,7 +101,7 @@ header a {
   font-family: 'Inter', sans-serif;
 }
 .submit button:hover {
-  background-color: #006e34;
+  background: radial-gradient(circle, #00632e, #025428);
 }
 .greenboxtext {
   color: #ffffff;
