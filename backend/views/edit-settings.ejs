@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('includes/head') %>
+<body>
+    <%- include('includes/header') %>
+    <main>
+    <div style="text-align: center;">
+      <div class="AccountSettings">
+        <h2>Account Settings</h2>
+      </div>
+
+      <div class="settings-box">
+        <form action="/edit-settings" method="POST">
+          <% if (errors && errors.length>0) { %>
+            <% errors.forEach(error=>{%>
+              <p class="notice"><%= error %></p>
+            <% }) %>
+          <% } %>
+
+          <label for="username"><strong>Username:</strong></label>
+          <input type="text" id="username" name="username" required value="<%= user.username %>">
+          <br>
+          <p><strong>Email:</strong> <%= user.email %></p>
+
+          <button type="submit" class="EditProfile">Confirm Changes</button>
+        </form>
+      </div>
+    </div>
+    </main>
+
+    <%- include('includes/footer') %>
+</body>
+</html>

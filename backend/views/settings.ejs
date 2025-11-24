@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('includes/head') %>
+<body>
+    <%- include('includes/header') %>
+    <main>
+        <div class="Banner">
+            <!--Profile pic-->
+        </div>
+        <div style="text-align: center;">
+            <div class="AccountSettings">
+                <h2>Account Settings</h2>
+            </div>
+                <div class="settings-box">
+                    <p><strong>Username:</strong> <%= user.username %></p>
+                    <p><strong>Email:</strong> <%= user.email %></p>
+                </div>   
+                <a href="/edit-settings" class="EditProfile">Edit Profile</a>
+        </div>
+    </main>
+
+    <%- include('includes/footer') %>
+</body>
+</html>
