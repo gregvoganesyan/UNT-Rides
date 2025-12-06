@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('includes/head') %>
+<body>
+    <%- include('includes/header') %>
+    
+    <div class="split-container">
+        <div class="postList">
+            <div class="postsList-header">
+                <h3>Find Rides</h3>
+                <h4>Rides Near You</h4>
+            </div>
+            
+            <% if (posts.length === 0) { %>
+                <div class="detailSide empty">
+                    <p>No rides yet.</p>
+                </div>
+            <% } else { %>
+                <ul class="ridesList">
+                    <% posts.forEach(post => { %>
+                        <li>
+                            <div class="postDesign" data-id="<%= post.id %>" data-username="<%= post.username %>" data-to="<%= post.rideTo %>" data-from="<%= post.rideFrom %>" data-date="<%= post.rideDate %>" data-time="<%= post.rideTime %>" data-fare="<%= post.fare %>">
+                                <div class="postDesign-header">
+                                    <span class="postUser"><%= post.username %></span>
+                                </div>
+                                <div class="postItems">
+                                    <strong>To:</strong> <%= post.rideTo %><br>
+                                    <strong>Time:</strong> <%= post.rideDate %><br>
+                                    <strong>From:</strong> <%= post.rideFrom %><br>
+                                    <strong>Fare:</strong> <%= post.fare.toFixed(2) %>
+                                </div>
+                            </div>
+                        </li>
+                    <% }) %>
+                </ul>
+            <% } %>
+        </div>
+
+        <div class="map-Column">
+            <div id="map"></div>
+        </div>
+
+        <div class="detailSide empty" id="detailSide">
+            <button id="backToList" class="mobile-back">← Back</button>
+            <p>Pick a ride to see details</p>
+        </div>
+    </div>
+
+</body>
+</html>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    //map
+    const map = tt.map({
+        key: 'uebxN0O3pQpAfbX3uDTg7qUbS77pmQdt',
+        container: 'map',
+        center: [-97.13286001421645, 33.20591363143222],
+        zoom: 9
+    });
+    
+    //controls for map
+    map.addControl(new tt.NavigationControl());
+
+        const untdenton = new tt.Marker()
+        .setLngLat([-97.151476, 33.209893])
+        .setPopup(new tt.Popup().setHTML('<b>UNT Main Campus'))
+        .addTo(map);
+
+        const untfrisco = new tt.Marker()
+        .setLngLat([-96.804759, 33.186413 ])
+        .setPopup(new tt.Popup().setHTML('<b>UNT at Frisco'))
+        .addTo(map);
+
+         const untdiscovery= new tt.Marker()
+        .setLngLat([-97.152519, 33.253887 ])
+        .setPopup(new tt.Popup().setHTML('<b>UNT at Discovery Park'))
+        .addTo(map);
+
+    const items = document.querySelectorAll('.postDesign');
+    
+    function isMobile() {
+        return window.innerWidth <= 1024;
+    }
+
+    items.forEach(item => {
+        item.onclick = function() {
+
+            if (isMobile()) {
+                window.location.href = `/ride-details/${this.dataset.id}`;
+                return;
+            }
+            
+            items.forEach(i => i.classList.remove('active'));
+            this.classList.add('active');
+            
+            const detailsPanel = document.getElementById('detailSide');
+            detailsPanel.className = 'detailSide';
+            
+            detailsPanel.innerHTML = `
+                <div class="details-header">
+                    <div class="detailsIcon"><img src="/images/student.png"></div>
+                    <div class="detailUsername"><p>${this.dataset.username}</p></div>
+                </div>
+                <div class="rideDetails">Ride Details</div>
+                <div class="detailItem">
+                    <div class="detail-rowName">To:</div>
+                    <div class="detail-rowItem">${this.dataset.to}</div>
+                </div>
+                <div class="detailItem">
+                    <div class="detail-rowName">From:</div>
+                    <div class="detail-rowItem">${this.dataset.from}</div>
+                </div>
+                <div class="detailItem">
+                    <div class="detail-rowName">Date:</div>
+                    <div class="detail-rowItem">${this.dataset.date}</div>
+                </div>
+                <div class="detailItem">
+                    <div class="detail-rowName">Time:</div>
+                    <div class="detail-rowItem">${this.dataset.time}</div>
+                </div>
+                <div class="detailItem">
+                    <div class="detail-rowName">Fare:</div>
+                    <div class="detail-rowItem">$${parseFloat(this.dataset.fare).toFixed(2)}</div>
+                </div>
+                <button class="joinbutton" onclick="location.href='/confirmation'">Request to Join</button>
+            `;
+        };
+    });
+});
+</script>
