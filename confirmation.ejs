@@ -1,16 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Account Created</title>
+    <title>Ride Request Sent</title>
 </head>
 <body>
-    <h1>Account Created Successfully!</h1>
-    <p>Welcome, <%= username %>!</p>
 
-    <a href="/login">Go to Login</a>
+    <h1>Your Ride Request Has Been Sent!</h1>
+
+    <p>
+        You have successfully requested to join this ride.
+    </p>
+
+    <p>
+        <strong>Driver's Email:</strong> <%= driverEmail %>
+    </p>
+
+    <p>
+        You may contact the driver to set up payment and arrange final ride details.
+    </p>
+
+    <!-- Optional direct email button -->
+    <a href="mailto:<%= driverEmail %>">
+        Contact Driver
+    </a>
+
+    <br><br>
+
+    <a href="/">Return to Home</a>
+
 </body>
 </html>
 
-<!-- res.render("confirmation.ejs", { username: req.body.username }); -->
+<%#
+ app.post("/request-to-join", (req, res) => {
+    const driverEmail = req.body.driverEmail;  // from your form
+
+    res.render("confirmation.ejs", {
+        driverEmail: driverEmail
+    });
+    %>
+});
