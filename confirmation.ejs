@@ -33,10 +33,11 @@
 
 <%#
  app.post("/request-to-join", (req, res) => {
-    const driverEmail = req.body.driverEmail;  // from your form
+    const driverEmail = req.body.driverEmail; 
 
     res.render("confirmation.ejs", {
         driverEmail: driverEmail
     });
     %>
 });
+
