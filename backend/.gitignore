@@ -1,7 +1,0 @@
-# Node.js dependencies
-node_modules/
-
-# SQLite database files
-UNTRIDES.db
-UNTRIDES.db-shm
-UNTRIDES.db-wal
