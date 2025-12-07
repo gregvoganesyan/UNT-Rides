@@ -4,10 +4,14 @@ A website that lets UNT students post their rides, denoting "To", "From", "Time"
 
 # Features of UNT RIDES
 
-User Sign up and Log in<br>
-Posting rides<br>
-Requesting rides<br>
-Cancel Ride Posting<br>
+- User Sign up and Log in<br>
+- Posting Rides<br>
+- Requesting Rides<br>
+- Edit Ride Posting<br>
+- Edit Account Information<br>
+- Forgot Password Feature<br>
+- Flag Inappropriate Rides<br>
+- Admin Commands (delete or approve rides)<br>
 
 # Run the Code on Local Host:
 npm install<br>
