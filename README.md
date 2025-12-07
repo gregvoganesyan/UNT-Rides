@@ -14,12 +14,12 @@ A website that lets UNT students post their rides, denoting "To", "From", "Time"
 - Admin Commands (delete or approve rides)<br>
 
 # Run the Code on Local Host:
-npm install<br>
-npm install dotenv<br>
-npm install bcrypt<br>
-npm install jsonwebtoken<br>
-npm install cookie-parser<br>
-npm install better-sqlite3<br>
+- npm install<br>
+- npm install dotenv<br>
+- npm install bcrypt<br>
+- npm install jsonwebtoken<br>
+- npm install cookie-parser<br>
+- npm install better-sqlite3<br>
 
-npm run dev<br>
-localhost:3000<br>
+- npm run dev<br>
+- VISIT ON BROWSER: localhost:3000<br>
