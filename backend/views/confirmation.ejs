@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('includes/head') %>
+<body>
+    <%- include('includes/header') %>
+
+    <div class="confirmation-container">
+        <div class="confirmationGreenBox">
+            <div class="confirmationWord">Confirmation</div>
+            
+            <h1 class="confirmationHeading">Contact the Driver to<br>Set Up the Ride!</h1>
+            
+            <div class="emailconfirmation">
+                <div class="emailTitle">Email: </div>
+                <div class="emailUser"><%= driverEmail %></div>
+            </div>
+
+            <div class="noteConfirmation">
+                Note: Only contact drivers who have UNT Emails.
+            </div>
+            
+            <a href="/" class="returnhome">Return to Home</a>
+        </div>
+    </div>
+</body>
+</html>

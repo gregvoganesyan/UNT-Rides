@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('includes/head') %>
+<body>
+    <%- include('includes/header') %>
+    <main>
+        <% if (posts.length==0) {%>
+        <h3><%=user.username%></h3>
+        <h4>You Do Not Have Any Posts</h4>
+        <% } else { %>
+        <h3><%=user.username%></h3>
+        <h4>You Have The Following Ride Posts</h4>
+        <% } %>
+        
+        <ul>
+            <% posts.forEach(post => { %>
+                <li>
+                <a href="/post/<%= post.id %>" class="post-box">
+                    <div class="post-content">
+                    <strong>To:</strong> <%= post.rideTo %> <br>
+                    <strong>From:</strong> <%= post.rideFrom %> <br>
+                    <small>Posted on <%= new Date(post.createdDate).getMonth()+1 %>/<%= new Date(post.createdDate).getDate() %>/<%= new Date(post.createdDate).getFullYear() %></small>
+                    </div>
+                </a>
+                </li>
+            <% }) %>
+        </ul>
+    </main>
+
+    <%- include('includes/footer') %>
+</body>
+</html>

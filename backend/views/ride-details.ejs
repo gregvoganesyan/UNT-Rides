@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('includes/head') %>
+<body>
+    <%- include('includes/header') %>
+    
+    <div class="ride-details-page">
+        <div class="details-header">
+            <div class="detailsIcon"><img src="/images/student.png"></div>
+            <div class="detailUsername"><p><%= post.username %></p></div>
+        </div>
+        <div class="rideDetails">Ride Details</div>
+        <div class="detailItem">
+            <div class="detail-rowName">To:</div>
+            <div class="detail-rowItem"><%= post.rideTo %></div>
+        </div>
+        <div class="detailItem">
+            <div class="detail-rowName">From:</div>
+            <div class="detail-rowItem"><%= post.rideFrom %></div>
+        </div>
+        <div class="detailItem">
+            <div class="detail-rowName">Date:</div>
+            <div class="detail-rowItem"><%= post.rideDate %></div>
+        </div>
+        <div class="detailItem">
+            <div class="detail-rowName">Time:</div>
+            <div class="detail-rowItem"><%= post.rideTime %></div>
+        </div>
+        <div class="detailItem">
+            <div class="detail-rowName">Fare:</div>
+            <div class="detail-rowItem">$<%= post.fare.toFixed(2) %></div>
+        </div>
+        <form method="POST" action="/request-to-join">
+                <input type="hidden" name="postId" value="<%= post.id %>">
+                <button type="submit" class="joinbutton">Request to Join</button>
+        </form>
+    </div>
+</body>
+</html>

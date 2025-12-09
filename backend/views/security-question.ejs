@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('includes/head') %>
+<body>
+    <%- include('includes/header') %>
+    <main>
+    <div class="container-center">
+      <h3 class="subheading">Sign Up</h3>
+
+      <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+        <% errors.forEach(error => { %>
+          <div class="errlist"><%= error %></div>
+        <% }) %>
+      <% } %>
+
+      <div class="box">
+        <div class="innerboxes">
+          <p class="greenboxtext">
+            Security Question
+          </p>
+          
+          <form id="securityForm" action="/security-question" method="POST">
+            <input class="inputfield" type="text" name="security_answer" placeholder="What is your dream vacation spot?" autocomplete="off" required />
+            
+            <p class="greenboxtext2">
+                This will be used to reset your password if needed.
+            </p>
+          </form>
+        </div>
+      </div>
+
+      <div class="submit">
+        <button type="submit" form="securityForm">Submit</button>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

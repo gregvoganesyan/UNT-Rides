@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('includes/head') %>
+<body>
+    <%- include('includes/header') %>
+
+    <main>
+        <div class="split-container">
+            <div class="editrideList">
+            <div class="editrideList-header">
+                <h3>Edit Your Rides</h3>
+                <h4>Manage Posts</h4>
+            </div>
+            
+            <ul class="ridesList">
+                <% posts.forEach(post => { %>
+                    <li>
+                        <div class="editrideDesign">
+                            <div class="postItems">
+                                <strong>To:</strong> <%= post.rideTo %><br>
+                                <strong>From:</strong> <%= post.rideFrom %><br>
+                                <strong>Date:</strong> <%= post.rideDate %><br>
+                                <strong>Time:</strong> <%= post.rideTime %><br>
+                                <strong>Fare:</strong> $<%= parseFloat(post.fare).toFixed(2) %>
+                            </div>
+                                
+                            <div class="editcommand">
+                                <a href="/edit-post/<%= post.id %>">Edit</a>
+                                <form action="/delete-post/<%= post.id %>" method="POST">
+                                    <button type="submit">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                    <% }) %>
+                </ul>
+        </div>
+
+        <div class="makeAPost">
+        <div class="container-center" style="margin-top: -40px";>
+            <h3 class="subheading">Post a Ride</h3>
+
+            <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+                <% errors.forEach(error => { %>
+                    <div class="errlist"><%= error %></div>
+                <% }) %>
+            <% } %>
+
+            <div class="box">
+                <div class="innerboxes">
+                    <form id="postForm" action="/create-post" method="POST">
+                        <label class="greenboxtextPost" for="rideTo">To:</label>
+                        <input class="inputfield" type="text" id="rideTo" name="rideTo" required />
+
+                        <label class="greenboxtextPost" for="rideFrom">From:</label>
+                        <input class="inputfield" type="text" id="rideFrom" name="rideFrom" required />
+
+                        <label class="greenboxtextPost" for="rideDate">Date:</label>
+                        <input class="inputfield" type="date" id="rideDate" name="rideDate" min="<%= new Date().toISOString().split('T')[0] %>" onkeydown="return false" required />
+
+                        <label class="greenboxtextPost" for="rideTime">Time:</label>
+                        <input class="inputfield" type="time" id="rideTime" name="rideTime" onkeydown="return false" required />
+
+                        <label class="greenboxtextPost" for="fare">Fare:</label>
+                        <input class="inputfield" type="number" id="fare" name="fare" placeholder="0.00" min="0" step="0.01" required />
+                    </form>
+                </div>
+            </div>
+
+            <div class="postRideSubmit">
+                <button type="submit" form="postForm">Post</button>
+            </div>
+        </div>
+        </div>
+        <div class="blankSection">
+
+        </div>
+    </div>
+    </main>
+
+</body>
+</html>
