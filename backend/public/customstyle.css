@@ -1,0 +1,1047 @@
+/* global styles */
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+    padding: 0;
+  background-color: #ffffff;
+  background-image: url("/images/loginsignup.png");
+  background-size: cover;
+  background-position : center top;
+}
+header {
+  background: radial-gradient(circle, #00853E, #036933);
+  color: #ffffff;
+  text-align: center;
+  width: 100%;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+}
+/* link in header */
+header a {
+  color: #ffffff;
+  text-decoration : none;
+}
+.headertextandaccount {
+  position: relative;
+  width: 85%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* centers */
+.container-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.subheading {
+  color: #000;
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 25px;
+}
+/* green box */
+.box {
+  background: radial-gradient(circle, #00853E, #037036);
+  width: 425px;
+  padding: 13px 0 12px;
+  border-radius: 1px;
+  display: flex;
+  justify-content: center;
+}
+/* green box */
+.boxLogin {
+  background: radial-gradient(circle, #00853E, #037036);
+  width: 425px;
+  padding: 35px 0 20px;
+  border-radius: 1px;
+  display: flex;
+  justify-content: center;
+}
+/* inner part of green box */
+.innerboxes {
+  width: 88%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* user inputed text */
+.inputfield {
+  background-color: #ffffff;
+  border: none;
+  width: 100%;
+  margin: 4px 0;
+  padding: 18px 0;
+  border-radius: 1px;
+  text-align: center;
+  font-size: 15px;
+  color: #000000;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+}
+.submit {
+  width: 425px;
+  display: flex;
+  justify-content: center;
+  margin-top: 14px;
+}
+.submit button {
+  width: 100%;
+  background: radial-gradient(circle, #00853E, #037237);
+  color: #ffffff;
+  border: none;
+  padding: 12px 0;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 1px;
+  font-family: 'Inter', sans-serif;
+}
+.submit button:hover {
+  background: radial-gradient(circle, #00632e, #025428);
+}
+.greenboxtext {
+  color: #ffffff;
+  font-size: 17px;
+  text-align: center;
+  margin: 4px 0 4px;
+  line-height: 1.4;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+}
+.greenboxtext2 {
+  color: #ffffff;
+  font-size: 15px;
+  text-align: center;
+  margin: 4px 0 4px;
+  line-height: 1.4;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+}
+.errlist {
+  width: 450px;
+  background: #edb4b4;
+  color: #201414;
+  padding: 5px 15px;
+  border-radius: 2px;
+  box-sizing: border-box;
+  border : 1px solid #9b9191;
+  margin-bottom: 10px;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+}
+.paragraphtxt {
+  margin-top: 15px;
+  text-align: center;
+  color: #000;
+  font-size: 16px;
+  font-family: 'Inter', sans-serif;
+}
+/* link */
+.paragraphtxt a {
+  color: #00853E;
+  text-decoration: underline;
+  font-weight: 500;
+}
+.paragraphtxt a:hover {
+  color: #015326;
+}
+.accountposition {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.accounticon {
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  display: block;
+}
+.dropdown {
+  position: absolute;
+  display: none;
+  right: 0;
+  top: 75px;
+  background-color: #ffffff;
+  min-width: 200px;
+  border-radius: 1px;
+  border: 1px solid #c2c1c1;
+  z-index: 1000;
+}
+.dropdown.show {
+  display: block;
+}
+.dropdown a {
+  color: #4b4a4a;
+  text-align: left;
+  font-size: 17px;
+  padding: 8px 30px;
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-weight: 200;
+}
+.dropdown a:hover {
+  background-color: #eff0ef;
+}
+.forgot {
+  color: #eff9e8;
+  text-decoration: underline;
+  display: block;
+  font-weight: 200;
+  font-size: 16px;
+  width: 100%;
+  text-align: right;
+  margin-top: 6px;
+  font-family: 'Inter', sans-serif;
+}
+.forgot:hover {
+  color: #dbe3db;
+}
+.nav-link {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 350;
+  padding-top: 10px;
+  margin-right: 15px;
+  font-family: 'Inter', sans-serif;
+  display: inline-block;
+}
+.nav-link:hover {
+  color: #e0e0e0;
+}
+
+/* split screen */
+.split-container {
+  display: flex;
+  height: calc(100vh - 80px);
+  background: white;
+  overflow: hidden;
+}
+
+.postList {
+  width: 29%;
+  background-color: white;
+  overflow-y: auto;
+}
+
+.postsList-header {
+  background-color: white;
+  color: black;
+  padding: 17px;
+}
+
+.postsList-header h3 {
+  margin: 10px 5px 5px 10px;
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.postsList-header h4 {
+  margin: 10px 5px -30px 10px;
+  font-size: 16px;
+  font-weight: 300;
+  color: black;
+}
+
+.editrideList {
+  width: 29%;
+  background: radial-gradient(circle, #c0bfbf, #e6e5e5);
+  overflow-y: auto;
+}
+.editrideList-header {
+  color: black;
+  padding: 17px;
+}
+
+.editrideList-header h3 {
+  margin: 10px 5px 5px 10px;
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.editrideList-header h4 {
+  margin: 10px 5px -30px 10px;
+  font-size: 16px;
+  font-weight: 300;
+  color: black;
+}
+
+.editrideDesign {
+  background: radial-gradient(circle, #ffffff, #f4f4f4);
+  display: block;
+  padding: 14px;
+  color: #000;
+  border-left: 4px solid transparent;
+  cursor: pointer;
+}
+
+.editrideDesign-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+
+/* padding left and right of all rides */
+.ridesList {
+  list-style: none;
+  padding: 20px;
+}
+
+/* padding between each ride */
+.ridesList li {
+  margin-bottom: 16px;
+}
+
+.postDesign {
+  background: radial-gradient(circle, #D9D9D9, #e6e5e5);
+  display: block;
+  padding: 14px;
+  color: #000;
+  border-left: 4px solid transparent;
+  cursor: pointer;
+}
+
+.postDesign:hover {
+  background: radial-gradient(circle, #c2d7ca, #b2c6ba);
+  border-left-color: #00853E;
+}
+
+/* post is clicked on */
+.postDesign.active {
+  background: radial-gradient(circle, #c2d7ca, #b2c6ba);
+  border-left-color: #00853E;
+}
+
+.postDesign-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+
+.postUser {
+  font-weight: 600;
+  color: #00853E;
+  font-size: 16px;
+}
+
+/* details inside each post */
+.postItems {
+  font-size: 15px;
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.postItems strong {
+  color: #000000;
+}
+
+
+.detailSide {
+  width:  30%;
+  background-color: #ffffff;
+  padding: 23px;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+.detailSide.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #bfbebe;
+  font-size: 18px;
+  text-align: center;
+}
+
+/* grey box in details side */
+.details-header {
+  background: radial-gradient(circle, #c7c6c6, #dcdada);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 0px;
+  padding: 28px 20px 20px 20px;
+  border-radius: 0px;
+  margin-left: -23px;
+  margin-right: -23px;
+  margin-top: -23px;
+}
+
+/* user icon box */
+.detailsIcon {
+  width: 150px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 25px;
+}
+
+.detailsIcon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.detailUsername {
+  margin: 0;
+  margin-top: -20px;
+  margin-bottom: -20px;
+  font-size: 24px;
+  font-weight: 650;
+  text-align: center;
+  color: #000;
+}
+
+/* ride details grey box */
+.rideDetails {
+  background: radial-gradient(circle, #E9E7E7, #f0eeee);
+  padding: 10px;
+  text-align: center;
+  font-weight: 650;
+  margin-left: -23px;
+  margin-right: -23px;
+  margin-bottom: 30px;
+}
+
+.detailItem {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 125px;
+}
+
+.detail-rowName {
+  font-size: 18px;
+  color: black;
+  margin-bottom: 0;
+  font-weight: 400;
+  min-width: 50px;
+}
+
+.detail-rowItem {
+  font-size: 18px;
+  color: black;
+  font-weight: 400;
+  text-align: left;
+}
+
+.joinbutton {
+  width: 60%;
+  background: radial-gradient(circle, #00853E, #037237);
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 17px;
+  font-weight: 600;
+  border-radius: 1px;
+  cursor: pointer;
+  margin-top: 28px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.joinbutton:hover {
+  background: radial-gradient(circle, #00632e, #025428);
+}
+
+.map-Column {
+  width: 41%;
+  position: relative;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+}
+.AccountSettings{
+    background-color: #EEEEEE;   
+    padding: 1px 4px;          
+    text-align: center;          
+    border-radius: 4px;          
+    margin-bottom: 5px;            
+}
+.EditProfile {
+  display: block;
+  width: 200px;                   
+  text-align: center;
+  background-color: #00853E;
+  color: #ffffff;
+  padding: 12px 0;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 1px;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  text-decoration: none;         
+  margin: 0 auto;             
+}
+
+.postRideSubmit {
+  width: 150px;
+  display: flex;
+  justify-content: center;
+  margin-top: 14px;
+}
+.postRideSubmit button {
+  width: 100%;
+  background: radial-gradient(circle, #00853E, #037237);
+  color: #ffffff;
+  border: none;
+  padding: 12px 0;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 1px;
+  font-family: 'Inter', sans-serif;
+}
+.postRideSubmit button:hover {
+  background: radial-gradient(circle, #00632e, #025428);
+}
+
+.postinputfield {
+  background-color: #ffffff;
+  border: none;
+  width: 85%;
+  margin: 4px 0;
+  padding: 14px 0;
+  border-radius: 1px;
+  text-align: center;
+  font-size: 15px;
+  color: #000000;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+}
+
+.greenboxtextPost {
+  color: #ffffff;
+  font-size: 17px;
+  margin: 8px 0 4px;
+  font-weight: 500;
+  width: 100%;
+  text-align: left;
+  font-family: 'Inter', sans-serif;
+}
+
+.existingPosts {
+  width: 40%;
+  background: radial-gradient(circle, #E9E7E7, #f0eeee);
+  padding: 25px;
+  overflow-y: auto;
+  height: calc(100vh - 80px);
+}
+.existingPosts h3 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.makeAPost {
+  width: 40%;
+  background: white;
+  padding: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.blankSection {
+  width: 20%;
+  background: white;
+}
+
+.postStylenew {
+  display: flex;
+  gap: 10px;
+  margin-top:
+  12px;
+}
+
+.editcommand {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.editcommand a {
+  flex: 1;
+  background: #00853E;
+  color: white;
+  padding: 8px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 1px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+}
+
+.editcommand a:hover {
+  background: #00632e;
+}
+
+.editcommand form {
+  flex: 1;
+  margin: 0;
+}
+
+.editcommand button {
+  width: 100%;
+  background: #888888;
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 1px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+}
+
+.editcommand button:hover {
+  background: #666666;
+}
+
+.mobile-back {
+  display: none;
+}
+
+
+@media (max-width: 1300px) {
+  /* no image for mobile */
+  body {
+    background-image: none !important;
+    background-color: #ffffff !important;
+  }
+}
+/* make front end look good on mobile */
+@media (max-width: 1024px) {
+
+  /* make header mobile-friendly */
+  header {
+    text-align: left !important;
+    padding-left: 20px !important;
+  }
+
+  .headertextandaccount {
+    width: 100% !important;
+    justify-content: flex-start !important;
+  }
+
+  .accountposition {
+    right: 25px !important;
+  }
+
+  .split-container 
+  {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+  }
+
+  .joinbutton {
+    width: 100% !important;
+  }
+
+  .detailItem {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px !important;
+  }
+
+  .detail-rowName {
+    font-weight: 600;
+  }
+
+  /* no editing posts on mobile */
+  .editrideList,
+  .blankSection {
+    display: none !important;
+  }
+
+  /* post a ride is mobile friendly */
+  .makeAPost {
+    width: 100% !important;
+    margin: 0 auto !important;
+    overflow-y: auto;
+    padding: 18px !important;
+    justify-content: flex-start !important;
+    display: block !important; 
+  }
+
+  #detailSide {
+    display: none !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: calc(100vh - 80px);
+    position: relative !important;
+  }
+
+  /* no detail side and map for mobile*/
+  .map-Column {
+    display: none !important;
+  }
+
+  #detailSide .mobile-back {
+    display: block !important;
+  }
+
+  .postList {
+    width: 100% !important;
+  }
+}
+
+.ride-details-page {
+    padding: 0 20px !important;
+    box-sizing: border-box;
+}
+
+/* fix detail items padding on mobile */
+.ride-details-page .detailItem {
+  padding: 0 !important;
+  margin-bottom: 15px !important;
+}
+
+  /* request to join fits mobile*/
+.ride-details-page .joinbutton {
+  width: 100% !important;
+  margin: 20px 0 !important;
+}
+
+/* grey header fits mobile */
+.ride-details-page .details-header {
+  padding: 15px 20px !important;
+  margin-left: -20px !important;
+  margin-right: -20px !important;
+  margin-top: 0 !important;
+}
+
+/* smaller avatar on mobile */
+.ride-details-page .detailsIcon {
+  width: 80px  !important;
+  height: 80px !important;
+  margin-left: 18px !important;
+}
+
+/* smaller font for mobile*/
+.ride-details-page .detailUsername {
+  font-size: 20px !important;
+  margin-top: -10px !important;
+  margin-bottom: -10px !important;
+}
+
+/* mobile-only ride details page design */
+.ride-details-page {
+  background-color: #ffffff;
+   padding: 0;
+  min-height: calc(100vh - 80px);
+}
+
+.ride-details-page .detailItem {
+    padding: 0 23px;
+}
+
+.ride-details-page .joinbutton {
+    margin: 28px 23px;
+}
+
+.editrideblank {
+  width: 29%;
+  overflow-y: auto;
+}
+
+/* welcome page */
+.welcomebox1 {
+    min-height: calc(100vh - 80px);
+    background: radial-gradient(circle, #41a971, #35614a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+.welcomebox2 {
+    background: radial-gradient(circle, #5e9a7a, #41b077);
+    padding: 140px 300px;
+    border-radius: 1px;
+}
+
+.welcomemessage {
+    text-align: center;
+}
+
+.welcome {
+    color: white;
+    font-size: 52px;
+    margin: 0 0px 15px 0px;
+    font-weight: 600;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 1px;
+}
+
+.welcomesubheading {
+    color: #ffffff;
+    font-size: 28px;
+    font-weight: 300;
+    margin: -5px 0 50px 0;
+    font-family: 'Inter', sans-serif;
+}
+
+.getStarted {
+    background: radial-gradient(circle, #016e34, #037036);
+    color: white;
+    padding: 11px 55px;
+    font-size: 20px;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 1px;
+    font-family: 'Inter', sans-serif;
+}
+
+.getStarted:hover {
+    background: radial-gradient(circle, #00632e, #025428);
+}
+
+/* flag a post*/
+.flagbutton {
+  position: absolute;
+  top: 8px; 
+  right: 8px; 
+  z-index: 10; 
+  margin: 0;
+}
+
+.flagdesign {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px 8px;
+}
+
+.flagimg {
+width: 20px;
+  height: 20px;
+  display:
+  block;
+}
+
+/* admin commands page*/
+.admin-page {
+  max-width: 900px;
+  margin: 30px auto 40px auto;
+  padding: 20px 30px 40px 30px;
+  background-color: #ffffff;
+  border-radius: 6px;
+}
+body.admin-body {
+  background-image: none !important;
+  background-color: #f5f5f5 !important;
+}
+
+.admin-title {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 27px;
+}
+
+.admin-tabs {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 18px 0;
+  display: flex;
+  gap: 16px;
+  font-size: 14px;
+}
+
+.admin-tabs .tabs-item a.active {
+  color: #00853e;
+  font-weight: 600;
+  border-bottom: 2px solid #00853e;
+}
+
+.admin-tabs  .tabs-item a:hover {
+  color: #00853e;
+  border-color: #00853e;
+}
+
+.admin-section {
+  display: none;
+  margin-top: 18px;
+}
+
+.admin-section.active {
+  display: block;
+  margin-top: 18px;
+}
+
+.admin-summary {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-bottom: 25px;
+}
+
+.admin-summary p {
+  background-color: #f0f0f0;
+  padding: 15px 20px;
+  border-radius: 4px;
+  flex: 1;
+  min-width: 250px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.flag-box, .ride-item .post-box {
+    background: radial-gradient(circle, #ececec, #f0eeee);
+  border-radius: 1px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.flag-buttons {
+  margin-top: 10px;
+  display:flex;
+  gap: 10px;
+}
+
+.approve-btn, .delete-btn {
+  padding: 7px 10px;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.approve-btn {
+  background-color: #00853E;
+  color: white;
+}
+
+.delete-btn {
+  background-color: #828080;
+  color: white;
+}
+
+.approve-btn:hover {
+  background-color: #006730;
+  color: white;
+}
+
+.delete-btn:hover{
+  background-color: #666464;
+  color: white;
+}
+
+.ride-list {
+  list-style: none;
+  padding: 0;
+}
+
+.ride-item {
+  margin-bottom: 7px;
+}
+
+.postuserdata {
+  margin-top: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #147a3b;
+}
+
+/* Confirmation page*/
+.confirmation-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: calc(100vh - 80px);
+    padding: 62px 24px 40px 20px;
+}
+
+.confirmationGreenBox {
+    background: radial-gradient(circle, #1ba25a, #037036);
+    padding: 50px 100px;
+    border-radius: 1px;
+    text-align: center;
+    max-width: 750px;
+    width: 100%;
+}
+
+.confirmationWord {
+    color: #ffffff;
+    font-size: 31px;
+    font-weight: 400;
+    letter-spacing: 0.8px;
+    margin-bottom: 19px;
+    margin-top: -19px;
+
+}
+
+.confirmationHeading {
+    color: #ffffff;
+    font-size: 42px;
+    font-weight: 700;
+    margin: 20px 0 40px 0;
+    line-height: 1.2;
+}
+
+.emailconfirmation {
+    padding: -20px;
+    margin: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10;
+}
+
+.emailTitle {
+    color: #ffffff;
+    font-size: 26px;
+    margin-right: 5px;
+    font-weight: 600;
+}
+
+.emailUser {
+    color: #ffffff;
+    font-size: 26px;
+    font-weight: 400;
+}
+
+.noteConfirmation {
+    color: #e8f5e9;
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 20px;
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+
+.returnhome {
+    display: inline-block;
+    color: #e8f5e9;
+    font-size: 16px;
+    font-weight: 400;
+    text-decoration: underline;
+}
+
+.returnhome:hover {
+    color: #dfdede;
+}
