@@ -1,1 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('includes/head') %>
+<body class="admin-body">
+    <%- include('includes/header') %>
+     
+    <main class="admin-page">
 
+        <h1 class="admin-title">Admin Dashboard</h1>
+        <ul class="admin-tabs">
+            <li class="tabs-item"><a href="#dash" class="active">Dashboard</a></li>
+            <li class="tabs-item"><a href="#flagged">Flagged Rides</a></li>
+            <li class="tabs-item"><a href="#all">All Rides</a></li>
+        </ul>
+
+        <section id="dash" class="admin-section active">
+            <h2>Overview</h2>
+            <div class="admin-summary">
+            <p><strong>Total Rides:</strong> <%= totalRides %></p>
+            <p><strong>Flagged Rides:</strong> <%= flaggedCount %></p>
+            </div>
+        </section>
+
+        <section id="flagged" class="admin-section">
+            <h2>Flagged Rides</h2>
+
+            <% if (!flagged || flagged.length === 0) { %>
+            <p>No flagged rides at this time.</p>
+            <% } else { %>
+              <% flagged.forEach(function (post){ %>
+        <div class="flag-box">
+            <p><strong>To:</strong> <%= post.rideTo %></p>
+            <p><strong>From:</strong> <%= post.rideFrom %></p>
+            <p><strong>Date:</strong> <%= post.rideDate %></p>
+            <p><strong>Time:</strong> <%= post.rideTime %></p>
+
+            <% if (post.fare) { %>
+              <p><strong>Fare:</strong> <%= post.fare.toFixed(2) %></p>
+            <% } %>
+
+            <div class="flag-buttons">
+             <form method="POST" action="/admin/approve/<%= post.id %>">
+                <button class="approve-btn">Approve</button>
+             </form>
+
+              <form method="POST" action="/admin/delete/<%= post.id %>">
+                <button class="delete-btn">Delete</button>
+             </form>
+            </div>
+        </div>
+              <% }) %>
+          <% } %>
+        </section>
+
+        <section id="all" class="admin-section">
+           <h2>All Ride Posts</h2>
+
+           <ul class="ride-list">
+           <% posts.forEach(function(post){ %>
+            <li class="ride-item">
+                <div class="post-box">
+                    <p><strong>To:</strong> <%= post.rideTo %></p>
+                    <p><strong>From:</strong> <%= post.rideFrom %></p>
+                    <p><strong>Date:</strong> <%= post.rideDate %></p>
+                    <p><strong>Time:</strong> <%= post.rideTime %></p>
+                    <p><strong>Fare:</strong> $<%= post.fare.toFixed(2) %></p>
+                    <p class="postuserdata">
+                     Post by <%= post.username %> on
+                     <%= new Date(post.createdDate).toLocaleDateString() %>
+                    </p>
+                </div>
+            </li>
+            <% }) %>
+           </ul>
+        </section>
+                
+     </main>
+
+     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = document.querySelectorAll ('.admin-tabs .tabs-item a');
+            const sections= document.querySelectorAll('.admin-section');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    e.preventDefault(); 
+
+                    tabs.forEach(t => t.classList.remove('active'));
+                    sections.forEach(s=> s.classList.remove('active'));
+                    e.target.classList.add('active');
+
+                    const targetId = e.target.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+
+                    if (targetSection) {
+                        targetSection.classList.add('active');
+                    }
+                })
+            })
+        })
+     </script>
+</body>
+</html>
