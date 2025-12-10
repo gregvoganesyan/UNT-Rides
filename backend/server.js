@@ -464,7 +464,7 @@ app.post ("/edit-post/:id", mustBeLoggedIn, (req, res)=>{
     WHERE id=?`)
     updateStatement.run(req.body.rideTo, req.body.rideFrom, formattedDate, formattedTime, parseFloat(req.body.fare), req.params.id)
 
-    res.redirect(`/post/${req.params.id}`)
+    res.redirect('/create-post')
 })
 
 app.post("/delete-post/:id", mustBeLoggedIn,(req, res)=>{
